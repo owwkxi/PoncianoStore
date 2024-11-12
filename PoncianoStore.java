@@ -2,6 +2,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Random;
 import java.util.Scanner;
 public class PoncianoStore {
     public static void main(String[] args) {
@@ -87,6 +88,9 @@ public class PoncianoStore {
 
         double change = 0.0;
         boolean successfulPurchase = false;
+        Random rd = new Random();
+        int reference = rd.nextInt(99999);
+
 
         
         if (payment >= totalCost) {
@@ -102,29 +106,31 @@ public class PoncianoStore {
             System.out.printf("Total Cost: %.2f%n", totalCost);
             System.out.printf("Payment Received: %.2f%n", payment);
             System.out.printf("Change: %.2f%n", change);
+            System.out.println("Reference Number: " + reference);
             System.out.println("Thank you for your purchase!");
         } else {
             System.out.printf("Insufficient payment. You need to pay at least %.2f%n", totalCost);
         }
 
         try{
-            FileWriter writer = new FileWriter(name +".txt");
+            FileWriter writer = new FileWriter(reference +".txt");
             writer.write("Name: " +  name + "\n" +"Age: " + age + "\n" +"Address: " + address + "\n" +"Model: " + models[modelChoice] + "\n" + "Color: " + chosenColor + "\n" +"Storage: " + chosenStorage + "\n" + "Payment: " + payment + "\n" + "Total: " +  totalCost + "\n");
             
             if (successfulPurchase) {
-            writer.write("Change: " + change );
-            } else {writer.write("Status: Insufficient payment."); }
+            writer.write("Change: " + change + "\n");
+            } else {writer.write("Status: Insufficient payment.\n"); }
+            writer.write("Reference Number: " + reference);
             writer.close();
         }
         catch(IOException e) {
             e.printStackTrace();
         }
 
-        System.out.println("\nEnter the name of the client: ");
-        sc.nextLine().trim();
-        String clientname = sc.nextLine();
+        System.out.println("\nEnter the Reference Number: ");
+        sc.nextLine();
+        String referencecode = sc.nextLine();
 
-        try (FileReader reader = new FileReader(clientname + ".txt")) {
+        try (FileReader reader = new FileReader(referencecode + ".txt")) {
             Scanner fileScanner = new Scanner(reader);
             System.out.println("\nPurchase Details:");
             while (fileScanner.hasNextLine()) {
