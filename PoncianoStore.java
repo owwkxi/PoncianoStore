@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 public class PoncianoStore {
     public static void main(String[] args) {
@@ -78,9 +80,14 @@ public class PoncianoStore {
         
         System.out.print("Enter payment amount: ");
         double payment = sc.nextDouble();
+
+        double change = 0.0;
+        boolean successfulPurchase = false;
+
         
         if (payment >= totalCost) {
-            double change = payment - totalCost;
+            change = payment - totalCost;
+            successfulPurchase = true;
             System.out.println("\nPurchase Receipt");
             System.out.println("Customer Name: " + name);
             System.out.println("Age: " + age);
@@ -95,7 +102,19 @@ public class PoncianoStore {
         } else {
             System.out.printf("Insufficient payment. You need to pay at least %.2f%n", totalCost);
         }
-        
+
+        try{
+            FileWriter writer = new FileWriter(name +".txt");
+            writer.write("Name: " +  name + "\n" +"Age: " + age + "\n" +"Address: " + address + "\n" +"Model: " + models[modelChoice] + "\n" + "Color: " + chosenColor + "\n" +"Storage: " + chosenStorage + "\n" + "Payment: " + payment + "\n" + "Total: " +  totalCost + "\n");
+            
+            if (successfulPurchase) {
+            writer.write("Change: " + change );
+            } else {writer.write("Status: Insufficient payment."); }
+            writer.close();
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
         sc.close();
     }
 }
