@@ -120,13 +120,13 @@ public class PoncianoStore {
             e.printStackTrace();
         }
 
-        System.out.println("Enter the name of the client: ");
+        System.out.println("\nEnter the name of the client: ");
         sc.nextLine();
         String clientname = sc.nextLine();
 
         try (FileReader reader = new FileReader(clientname + ".txt")) {
             Scanner fileScanner = new Scanner(reader);
-            System.out.println("\nPurchase Details from File:");
+            System.out.println("\nPurchase Details:");
             while (fileScanner.hasNextLine()) {
                 System.out.println(fileScanner.nextLine());
             }
