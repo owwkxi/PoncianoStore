@@ -138,7 +138,7 @@ public class PoncianoStore {
             }
             fileScanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found!");
+            System.out.println("Not Found!");
         } catch (IOException e) {
             e.printStackTrace();
         }
