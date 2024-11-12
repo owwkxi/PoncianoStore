@@ -121,7 +121,7 @@ public class PoncianoStore {
         }
 
         System.out.println("\nEnter the name of the client: ");
-        sc.nextLine();
+        sc.nextLine().trim();
         String clientname = sc.nextLine();
 
         try (FileReader reader = new FileReader(clientname + ".txt")) {
