@@ -1,5 +1,7 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Scanner;
 public class PoncianoStore {
     public static void main(String[] args) {
@@ -42,6 +44,8 @@ public class PoncianoStore {
         };
         
         System.out.println("Welcome to the Ponciano Store!");
+        boolean shopping = true;
+        while (shopping){
         System.out.println("Please choose a model to view its specifications:");
         
         
@@ -114,6 +118,30 @@ public class PoncianoStore {
         }
         catch(IOException e) {
             e.printStackTrace();
+        }
+
+        System.out.println("Enter the name of the client: ");
+        sc.nextLine();
+        String clientname = sc.nextLine();
+
+        try (FileReader reader = new FileReader(clientname + ".txt")) {
+            Scanner fileScanner = new Scanner(reader);
+            System.out.println("\nPurchase Details from File:");
+            while (fileScanner.hasNextLine()) {
+                System.out.println(fileScanner.nextLine());
+            }
+            fileScanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.print("\nWould you like to make another purchase? (yes/no): ");
+            String response = sc.nextLine().trim().toLowerCase();
+            if (!response.equals("yes")) {
+                shopping = false;
+                System.out.println("Thank you for visiting Ponciano Store!");
+        }    
         }
         sc.close();
     }
