@@ -85,13 +85,13 @@ public class PoncianoStore {
         
         System.out.print("Enter payment amount: ");
         double payment = sc.nextDouble();
-
+        
         double change = 0.0;
         boolean successfulPurchase = false;
         Random rd = new Random();
         int reference = rd.nextInt(99999);
-
-
+        
+        
         
         if (payment >= totalCost) {
             change = payment - totalCost;
@@ -111,7 +111,7 @@ public class PoncianoStore {
         } else {
             System.out.printf("Insufficient payment. You need to pay at least %.2f%n", totalCost);
         }
-
+        
         try{
             FileWriter writer = new FileWriter(reference +".txt");
             writer.write("Name: " +  name + "\n" +"Age: " + age + "\n" +"Address: " + address + "\n" +"Model: " + models[modelChoice] + "\n" + "Color: " + chosenColor + "\n" +"Storage: " + chosenStorage + "\n" + "Payment: " + payment + "\n" + "Total: " +  totalCost + "\n");
@@ -125,11 +125,11 @@ public class PoncianoStore {
         catch(IOException e) {
             e.printStackTrace();
         }
-
+        
         System.out.println("\nEnter the Reference Number: ");
         sc.nextLine();
         String referencecode = sc.nextLine();
-
+        
         try (FileReader reader = new FileReader(referencecode + ".txt")) {
             Scanner fileScanner = new Scanner(reader);
             System.out.println("\nPurchase Details:");
